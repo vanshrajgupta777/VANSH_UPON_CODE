@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+void qs(int a[],int low,int high){
+    if(low>=high) return;
+    int left=low,right=high;
+    while(left<=right){
+        if((a[left]>a[low])&&(a[right]<a[low])){
+            swap(a[left],a[right]);
+            left++;
+            right--;
+        }
+        else if(a[left]>a[low]) right--;
+        else if(a[right]<a[low]) left++;
+        else{
+            left++;
+            right--;
+        }
+    }
+    swap(a[low],a[right]);
+    qs(a,low,right-1);
+    qs(a,right+1,high);
+
+}
+int main(){
+    int a[]={3,6,2,77,22,99,33,77,44,88,34,87};
+    int low=0,high=(sizeof(a)/sizeof(int))-1;
+    qs(a,low,high);
+    for(auto x:a){
+        cout<<x<<' ';
+    }
+    return 0;
+}
